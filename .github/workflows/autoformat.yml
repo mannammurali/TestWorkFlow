@@ -20,4 +20,4 @@ jobs:
         run: pip install sqlfluff
       
       - name: Run SQLFluff
-        run: sqlfluff lint src/sql/
+        run: sqlfluff lint . --dialect ansi

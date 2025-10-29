@@ -19,5 +19,7 @@ jobs:
       - name: Install and configure SQLFluff
         run: pip install sqlfluff
       
+      - name: Run SQLFluffFix
+        run: sqlfluff fix . --dialect sparksql
       - name: Run SQLFluff
         run: sqlfluff lint . --dialect ansi

@@ -2,32 +2,6 @@
 [sqlfluff]
 dialect = ansi
 
-ignore = templating  
-large_file_skip_byte_limit = 0 
-max_line_length = 0  
-
-
-[sqlfluff:layout:type:alias_expression]
-spacing_before = align
-align_within = select_clause
-spacing_after = touch
-
-[sqlfluff:indentation]
-tab_space_size = 2
-indent_unit = space
-indented_joins = false
-indented_using_on = true
-allow_implicit_indents = true
-indented_on_contents = false
-indented_ctes = false
-
 [sqlfluff:rules]
-aliasing.table = consistent
-aliasing.column = consistent
 capitalisation.keywords = upper
-
-line_position = trailing
-
-wildcard_policy = single
-
-set_operator_on_new_line = ['UNION', 'UNION ALL']
+aliasing.table = consistent

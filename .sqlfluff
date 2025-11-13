@@ -22,8 +22,8 @@ indented_on_contents = false
 indented_ctes = false
 
 [sqlfluff:rules]
-aliasing.table = consistant
-aliasing.column = consistant
+aliasing.table = consistent
+aliasing.column = consistent
 capitalisation.keywords = upper
 
 line_position = trailing

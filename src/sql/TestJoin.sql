@@ -25,8 +25,7 @@ TotalSales AS CurrentMonthSales,
 LAG(TotalSales, 1, 0) OVER (PARTITION BY Region, ProductID ORDER BY SaleMonth) AS PreviousMonthSales
 FROM MonthlySales
 )
-SELECT rp.SaleMonth,        rp.Region,
-                   rp.ProductID,
+SELECT rp.SaleMonth,        rp.Region,                   rp.ProductID,
 rp.TotalSales,
 rp.ProductRank,
 (pms.CurrentMonthSales - pms.PreviousMonthSales) AS SalesDifferenceFromPreviousMonth

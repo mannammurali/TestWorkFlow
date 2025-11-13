@@ -22,22 +22,12 @@ indented_on_contents = false
 indented_ctes = false
 
 [sqlfluff:rules]
-aliasing.table = explicit
-aliasing.column = explicit
-fully_qualify_join_types = inner
-capitalisation_policy = upper
-
-capitalisation.functions = upper
-
-no_trailing_whitespace = true
-extra_whitespace = false
+aliasing.table = consistant
+aliasing.column = consistant
+capitalisation.keywords = upper
 
 line_position = trailing
-
-no_space_after_function_name = true
 
 wildcard_policy = single
 
 set_operator_on_new_line = ['UNION', 'UNION ALL']
-
-forbid_subquery_in = join

@@ -1,7 +1,0 @@
-# .sqlfluff
-[sqlfluff]
-dialect = ansi
-
-[sqlfluff:rules]
-capitalisation.keywords = upper
-aliasing.table = consistent

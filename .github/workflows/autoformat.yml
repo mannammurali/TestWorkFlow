@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: formatted-sql
-          path: path/to/your/formatted-file.sql
+          path: src/sql/formatted-file.sql
 
       - name: Create new branch for changes
         id: create_branch

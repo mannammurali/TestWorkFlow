@@ -41,6 +41,12 @@ jobs:
       - name: Stop if no changes
         if: steps.changes.outputs.changed == 'no'
         run: echo "No formatting changes detected."
+        
+      - name: Upload formatted SQL file
+        uses: actions/upload-artifact@v2
+        with:
+          name: formatted-sql
+          path: path/to/your/formatted-file.sql
 
       - name: Create new branch for changes
         id: create_branch

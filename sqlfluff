@@ -1,5 +1,4 @@
 [sqlfluff]
-dialect = tsql
 templater = jinja       # optional if you use templating
 indent_unit = space
 tab_space_size = 4

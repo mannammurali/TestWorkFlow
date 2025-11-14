@@ -1,9 +1,12 @@
 [sqlfluff]
 dialect = teradata
+exclude_rules = L028,L029,L031,L036,L003
 
-# Common Teradata-friendly rule adjustments
-exclude_rules = L028,L029,L031,L036
-
-# Keyword capitalization (rule L010)
 [sqlfluff:rules:L010]
 capitalisation_policy = upper
+
+[sqlfluff:rules:L014]
+extended_capitalisation_policy = upper
+
+[sqlfluff:rules:L016]
+max_line_length = 120

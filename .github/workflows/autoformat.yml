@@ -27,7 +27,7 @@ jobs:
 
       - name: Format SQL files
         run: |
-          sqlfluff fix --force .
+          sqlfluff fix .
 
       - name: Check if any files changed
         id: changes

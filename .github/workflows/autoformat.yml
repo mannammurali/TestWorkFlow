@@ -43,7 +43,7 @@ jobs:
         run: echo "No formatting changes detected."
         
       - name: Upload formatted SQL file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: formatted-sql
           path: path/to/your/formatted-file.sql

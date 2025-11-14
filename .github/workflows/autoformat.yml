@@ -1,4 +1,4 @@
-name: SQL Formatting
+name: SQL Formatting (Teradata)
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  format-sql:
+  format-teradata-sql:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,14 +19,22 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
-      - name: Format SQL files
-        run: sqlfluff fix --force .
+      - name: Format Teradata SQL files
+        run: sqlfluff fix --dialect teradata --force .
 
-      - name: Check if any files changed
+      - name: Check for changes after formatting
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
-            echo "SQL files were reformatted."
-            exit 1  # fail the job if formatting is needed
+            echo "Teradata SQL files were reformatted."
+            exit 1
           fi
 
-
+      # OPTIONAL: automatically commit formatted SQL back
+      - name: Commit formatted SQL
+        if: failure()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Automated Teradata SQL formatting"
+          git push

@@ -26,7 +26,7 @@ jobs:
           pip install sqlfluff
 
       - name: Format SQL files
-        # run SQLFluff fix and ignore exit code if unfixable violations remain
+        # Apply minimal formatting rules; ignore exit code for unfixable violations
         run: |
           sqlfluff fix --dialect tsql . || true
 
@@ -57,7 +57,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Auto-format SQL files with SQLFluff"
+          git commit -m "Auto-format SQL files (minimal formatting)"
 
       - name: Push branch
         if: steps.changes.outputs.changed == 'yes'
@@ -69,6 +69,6 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: ${{ steps.create_branch.outputs.branch }}
-          title: "Auto-format SQL files with SQLFluff"
-          body: "This PR automatically applies SQLFluff formatting to SQL files."
+          title: "Auto-format SQL files (minimal formatting)"
+          body: "This PR applies minimal formatting to SQL files: indentation, comma placement, and join alignment."
           base: main

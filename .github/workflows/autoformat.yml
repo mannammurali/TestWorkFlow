@@ -29,12 +29,3 @@ jobs:
             exit 1
           fi
 
-      # OPTIONAL: automatically commit formatted SQL back
-      - name: Commit formatted SQL
-        if: failure()
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add .
-          git commit -m "Automated Teradata SQL formatting"
-          git push

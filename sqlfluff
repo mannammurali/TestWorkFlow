@@ -1,13 +1,9 @@
 [sqlfluff]
-dialect = tsql  # Set dialect to T-SQL
+dialect = tsql
 
-# Rules to fix only common formatting issues (indentation, commas, joins, etc.)
-rules = L003, L006, L009
+rules = L003, L006, L009  # Keep only indent and comma-related fixes
 
-# Disable rules that might remove blank lines or make unnecessary changes
-exclude_rules = L010  # No blank line removal (L010)
-max_line_length = 120  # Allow long lines (up to 120 characters)
+# Disable specific rules causing issues
+exclude_rules = CP02, LT05  # Turn off capitalization and long line checks
 
-# Optional customizations for consistent formatting:
-indent_unit = space
-indent_size = 4  # Use 4 spaces for indentation (T-SQL standard)
+max_line_length = 120  # Allow lines up to 120 characters

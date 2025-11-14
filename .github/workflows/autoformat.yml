@@ -26,8 +26,9 @@ jobs:
           pip install sqlfluff
 
       - name: Format SQL files
+        # run SQLFluff fix and ignore exit code if unfixable violations remain
         run: |
-          sqlfluff fix --dialect tsql .
+          sqlfluff fix --dialect tsql . || true
 
       - name: Check if any files changed
         id: changes

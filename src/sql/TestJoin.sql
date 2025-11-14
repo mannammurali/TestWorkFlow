@@ -1,4 +1,4 @@
-WITH MonthlySales AS (
+WITH MonthlySales AS ( 
 SELECT
 CAST(FORMAT(SaleDate, 'YYYY-MM-01') AS DATE) AS SaleMonth,
 Region,
@@ -7,9 +7,7 @@ SUM(SaleAmount) AS TotalSales
 FROM SalesData
 GROUP BY 1, 2, 3
 ),
-  
-
-      RankedProducts AS (
+RankedProducts AS (
 SELECT
 SaleMonth,
 Region,
@@ -18,8 +16,6 @@ TotalSales,
 RANK() OVER (PARTITION BY SaleMonth, Region ORDER BY TotalSales DESC) AS ProductRank
 FROM MonthlySales
 ),
-
-
 PreviousMonthSales AS (
 SELECT
 SaleMonth,

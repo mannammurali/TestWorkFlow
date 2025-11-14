@@ -1,9 +1,9 @@
 [sqlfluff]
 dialect = teradata
 
-# Common Teradata-friendly rule adjustments:
+# Common Teradata-friendly rule adjustments
 exclude_rules = L028,L029,L031,L036
 
-# Optional: enforce upper-case keywords (common in Teradata shops)
-[sqlfluff:rules]
+# Keyword capitalization (rule L010)
+[sqlfluff:rules:L010]
 capitalisation_policy = upper

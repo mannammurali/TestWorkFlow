@@ -25,9 +25,9 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install sqlfluff
 
-      - name: Format SQL files with SQLFluff
+      - name: Run SQLFluff to check for issues
         run: |
-          sqlfluff fix --dialect tsql --force --diff . || true  # Show diffs of changes
+          sqlfluff fix --dialect tsql --verbose --force . || true  # Show detailed output of fixes
 
       - name: Check if any files changed
         id: changes

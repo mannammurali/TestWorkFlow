@@ -1,28 +1,72 @@
-name: Format SQL Files
+name: Auto Format SQL and Create PR
 
 on:
-  pull_request:
   push:
     paths:
-      - '**/*.sql'
+      - "**/*.sql"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   format:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for creating branches
+
       - name: Install sql-formatter
         run: npm install -g sql-formatter
+
       - name: Format SQL files
         run: |
           shopt -s globstar
           sql-formatter --fix **/*.sql || true
 
-      - name: Commit formatted files
+      - name: Check if any files changed
+        id: changes
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add ./*.sql **/*.sql || true
-          git commit -m "Format SQL files" || echo "No changes to commit"
-          git push
+          if git diff --quiet; then
+            echo "changed=no" >> $GITHUB_OUTPUT
+          else
+            echo "changed=yes" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Stop if no changes
+        if: steps.changes.outputs.changed == 'no'
+        run: echo "No formatting changes detected."
+
+      - name: Create new branch
+        id: create_branch
+        if: steps.changes.outputs.changed == 'yes'
+        run: |
+          BRANCH="sql-format-$(date +%s)"
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          git checkout -b "$BRANCH"
+
+      - name: Commit formatted SQL
+        if: steps.changes.outputs.changed == 'yes'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Auto-format SQL files"
+
+      - name: Push branch
+        if: steps.changes.outputs.changed == 'yes'
+        run: |
+          git push --set-upstream origin ${{ steps.create_branch.outputs.branch }}
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'yes'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ${{ steps.create_branch.outputs.branch }}
+          title: "Auto-format SQL files"
+          body: "This PR was automatically generated to apply SQL formatting."
+          base: main

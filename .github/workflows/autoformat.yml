@@ -19,8 +19,8 @@ jobs:
       - name: Install SQLFluff
         run: pip install sqlfluff
 
-      - name: Format Teradata SQL files
-        run: sqlfluff fix --dialect teradata .
+      - name: Format Teradata SQL files (format-only, no lint failure)
+        run: sqlfluff fix --dialect teradata --force --ignore .
 
       - name: Check for changes after formatting
         run: |
@@ -28,4 +28,3 @@ jobs:
             echo "Teradata SQL files were reformatted."
             exit 1
           fi
-

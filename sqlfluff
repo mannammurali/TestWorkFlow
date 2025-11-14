@@ -1,9 +1,14 @@
 [sqlfluff]
-templater = jinja       # optional if you use templating
-indent_unit = space
+templater = jinja
+dialect = tsql
+indent_unit = tab
 tab_space_size = 4
-verbose = 1
+verbose = 0
 
 [sqlfluff:rules]
-max_line_length = 120
-comma_style = leading   # commas at start of line
+# Only apply rules that change indentation and spacing
+L003 = True    # Indentation
+L004 = True    # Inconsistent capitalisation (optional)
+L006 = True    # Comma placement
+L009 = True    # Joins formatting
+# Disable all other rules

@@ -1,0 +1,3 @@
+[sqlfluff]
+dialect = mysql      # or: mysql, snowflake, bigquery, tsql, etc.
+exclude_rules = L009    # example: ignore indentation rule

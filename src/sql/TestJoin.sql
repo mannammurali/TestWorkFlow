@@ -8,8 +8,8 @@ FROM SalesData
 GROUP BY 1, 2, 3
 ),
   
-  
-RankedProducts AS (
+
+      RankedProducts AS (
 SELECT
 SaleMonth,
 Region,

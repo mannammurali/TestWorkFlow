@@ -15,7 +15,7 @@ jobs:
       - name: Install sql-formatter
         run: npm install -g sql-formatter
       - name: Format SQL files
-        run: sql-formatter --write '**/*.sql'
+        run: sql-formatter --fix '**/*.sql'
       - name: Commit formatted SQL files
         run: |
           git config --global user.name 'GitHub Actions'

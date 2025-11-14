@@ -25,10 +25,9 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install sqlfluff
 
-      - name: Format SQL files
-        # Apply minimal formatting rules; ignore exit code for unfixable violations
+      - name: Format SQL files with SQLFluff
         run: |
-          sqlfluff fix --dialect tsql . || true
+          sqlfluff fix --dialect tsql --force --diff . || true  # Show diffs of changes
 
       - name: Check if any files changed
         id: changes
@@ -43,7 +42,7 @@ jobs:
         if: steps.changes.outputs.changed == 'no'
         run: echo "No formatting changes detected."
 
-      - name: Create new branch
+      - name: Create new branch for changes
         id: create_branch
         if: steps.changes.outputs.changed == 'yes'
         run: |
@@ -59,7 +58,7 @@ jobs:
           git add -A
           git commit -m "Auto-format SQL files (minimal formatting)"
 
-      - name: Push branch
+      - name: Push new branch
         if: steps.changes.outputs.changed == 'yes'
         run: |
           git push --set-upstream origin ${{ steps.create_branch.outputs.branch }}

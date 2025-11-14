@@ -27,7 +27,7 @@ jobs:
 
       - name: Run SQLFluff to check for issues
         run: |
-          sqlfluff fix --dialect tsql --verbose --force . || true  # Show detailed output of fixes
+          sqlfluff fix --dialect tsql --verbose --force . || true  # Apply minimal fixes
 
       - name: Check if any files changed
         id: changes

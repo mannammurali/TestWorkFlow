@@ -1,23 +1,14 @@
 [sqlfluff]
-templater = jinja
-dialect = tsql
-indent_unit = space
-tab_space_size = 4
-verbose = 0
+dialect = tsql  # Set dialect to T-SQL (if you're working with SQL Server)
 
-[sqlfluff:rules]
-# Only enable minimal formatting rules
-L003 = True    # Indentation
-L006 = True    # Comma placement
-L009 = True    # Joins formatting
-L004 = True  # Capitalization consistency (optional)
-L010 = True  # Line length
+# Rules to fix common formatting issues (indentation, commas, joins, etc.)
+rules = L003, L006, L009
 
-# Disable all other rules
-L001 = False
-L002 = False
-L005 = False
-L007 = False
-L008 = False
-L011 = False
-L012 = False
+# Disable some other rules that may remove blank lines or modify structure
+exclude_rules = L010  # Line length, so it doesn't remove blank lines
+max_line_length = 120  # Set a max line length, if you want to allow some wider lines
+
+# Optional - Customize other rules you may want to keep:
+# L004 - Capitalization consistency
+# L002 - Indentation should be 4 spaces (default, can be customized)
+# L005 - Consistent quotes for strings (if needed)

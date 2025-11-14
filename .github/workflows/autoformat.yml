@@ -1,4 +1,4 @@
-name: Auto Format SQL and Create PR
+name: Auto Format SQL with SQLFluff
 
 on:
   push:
@@ -15,18 +15,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Needed for creating branches
+          fetch-depth: 0
 
-      - name: Install sql-formatter
-        run: npm install -g sql-formatter
+      - name: Install SQLFluff
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install sqlfluff
 
       - name: Format SQL files
         run: |
-          shopt -s globstar
-          sql-formatter --fix **/*.sql || true
+          sqlfluff fix --force .
 
       - name: Check if any files changed
         id: changes
@@ -45,7 +46,7 @@ jobs:
         id: create_branch
         if: steps.changes.outputs.changed == 'yes'
         run: |
-          BRANCH="sql-format-$(date +%s)"
+          BRANCH="sqlfluff-format-$(date +%s)"
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           git checkout -b "$BRANCH"
 
@@ -55,7 +56,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Auto-format SQL files"
+          git commit -m "Auto-format SQL files with SQLFluff"
 
       - name: Push branch
         if: steps.changes.outputs.changed == 'yes'
@@ -67,6 +68,6 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: ${{ steps.create_branch.outputs.branch }}
-          title: "Auto-format SQL files"
-          body: "This PR was automatically generated to apply SQL formatting."
+          title: "Auto-format SQL files with SQLFluff"
+          body: "This PR automatically applies SQLFluff formatting to SQL files."
           base: main

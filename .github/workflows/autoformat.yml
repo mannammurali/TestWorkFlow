@@ -20,7 +20,7 @@ jobs:
         run: pip install sqlfluff
 
       - name: Format Teradata SQL files
-        run: sqlfluff fix --dialect teradata --force .
+        run: sqlfluff fix --dialect teradata .
 
       - name: Check for changes after formatting
         run: |

@@ -16,7 +16,7 @@ TotalSales,
 RANK() OVER (PARTITION BY SaleMonth, Region ORDER BY TotalSales DESC) AS ProductRank
 FROM MonthlySales
 ),
-  
+
 PreviousMonthSales AS (
   
 SELECT

@@ -1,5 +1,10 @@
 [sqlfluff]
-# dialect = ansi
-exclude_rules = L003, L008, L014
-sql_file_exts = .sql
-max_line_length = 150
+dialect = teradata
+
+# Common Teradata-friendly rule adjustments:
+exclude_rules = L031  # Allow SELECT * (very common in Teradata dev)
+                       # Remove this line if you want to enforce no SELECT *
+
+# Optional: enforce upper-case keywords (common in Teradata shops)
+[sqlfluff:rules:L010]
+capitalisation_policy = upper
